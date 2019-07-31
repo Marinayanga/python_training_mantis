@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.select import Select
 from fixture.session import SessionHelper
-
+from model.project import Project
 
 class Application:
     def __init__(self,base_url, browser):
@@ -17,7 +17,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        self.wd = WebDriver
+        self.wd = WebDriver()
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.base_url = base_url
@@ -31,16 +31,7 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
-        wd.get("http://localhost/mantisbt-1.2.20")
-
-    def login(self, username, password):
-        wd = self.wd
-        wd.get("http://localhost/mantisbt-1.2.20/login_page.php")
-        wd.find_element_by_name("username").clear()
-        wd.find_element_by_name("username").send_keys(username)
-        wd.find_element_by_name("password").clear()
-        wd.find_element_by_name("password").send_keys(password)
-        wd.find_element_by_xpath("//input[@value='Login']").click()
+        wd.get("http://localhost/mantisbt-1.2.20/my_view_page.php")
 
     def return_to_ptoject_page(self):
         wd = self.wd
@@ -67,9 +58,36 @@ class Application:
         wd = self.wd
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
 
-    def logout(self):
+    def delete_project_by_index(self, index):
         wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
+        wd.find_elements_by_xpath("//a[contains(@href, 'manage_proj_edit_page.php?project_id=')]")[index].click()
+        #wd.find_elements_by_css_selector("tr.row-1 > td > a")[index].click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+        wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+
+    def delete_first_project(self):
+        wd = self.wd
+        self.delete_project_by_index(1)
+
+    list=[]
+
+    def get_project_list(self):
+        self.list=[]
+        wd=self.wd
+        for element in wd.find_elements_by_xpath("//a[contains(@href, 'manage_proj_edit_page.php?project_id=')]"):
+            name = element.text
+            cells = element.find_elements_by_tag_name("td")
+            status = cells[1].text
+            view_state = cells[3]
+            description = cells[4]
+            #id = element.find_element_by_name("selected[]").get_attribute("value")
+            self.list.append(Project(name=name, status=status, view_state=view_state,description=description))
+        return list
+
+    #
+    # def logout(self):
+    #     wd = self.wd
+    #     wd.find_element_by_link_text("Logout").click()
 
     def destroy(self):
         self.wd.quit()

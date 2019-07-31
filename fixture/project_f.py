@@ -26,3 +26,17 @@ def fill_project_name(self, project):
 def click_create_project(self):
     wd = self.wd
     wd.find_element_by_xpath("//input[@value='Create New Project']").click()
+
+def delete_project_by_index(self,index):
+    wd=self.wd
+    wd.find_elements_by_css_selector("table.width100 > tr > td > a")[index].click()
+    wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+    wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+
+def delete_first_project(self):
+    wd=self.wd
+    self.delete_project_by_index(0)
+
+# def select_project(self, name):
+#     wd=self.wd
+#     wd.find_element_by_link_text(name).click()
