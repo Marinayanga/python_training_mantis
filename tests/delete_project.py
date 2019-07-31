@@ -1,13 +1,10 @@
-from fixture.application import Application
 
+from  model.project import Project
 
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 def test_delete_project(app):
     app.session.login(username="administrator", password="root")
-    app.return_to_ptoject_page()
-    app.get_project_list()
-    app.delete_first_project()
+    app.project.return_to_ptoject_page()
+    if len(app.project.get_project_list()) == 0:
+         app.project.create_project(Project(name="Test 7", status='stable', view_state="private", description="Description 7"))
+    app.project.delete_first_project()
