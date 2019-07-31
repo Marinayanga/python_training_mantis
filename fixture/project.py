@@ -24,12 +24,9 @@ class ProjectHelper:
         wd.find_element_by_name("name").click()
         wd.find_element_by_name("name").send_keys(project.name)
         wd.find_element_by_name("status").click()
-        wd.find_element_by_name("status").click()
         Select(wd.find_element_by_name("status")).select_by_visible_text(project.status)
-        wd.find_element_by_name("view_state").click()
         Select(wd.find_element_by_name("view_state")).select_by_visible_text(project.view_state)
         wd.find_element_by_name("description").click()
-        wd.find_element_by_name("description").clear()
         wd.find_element_by_name("description").send_keys(project.description)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
 
@@ -60,7 +57,7 @@ class ProjectHelper:
             description = cells[4]
             #id = element.find_element_by_name("selected[]").get_attribute("value")
             self.list.append(Project(name=name, status=status, view_state=view_state,description=description))
-        return list
+        return self.list
 
     def return_to_ptoject_page(self):
         wd = self.app.wd
@@ -98,6 +95,6 @@ class ProjectHelper:
 #     wd=self.wd
 #     self.delete_project_by_index(0)
 
-# def select_project(self, name):
-#     wd=self.wd
-#     wd.find_element_by_link_text(name).click()
+    def select_first_project(self):
+        wd=self.wd
+        wd.find_elements_by_xpath("//a[contains(@href, 'manage_proj_edit_page.php?project_id=')]").click()
