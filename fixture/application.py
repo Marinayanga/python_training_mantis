@@ -24,12 +24,12 @@ class Application:
         self.base_url = base_url
         self.project = ProjectHelper(self)
 
-    # def is_valid(self):
-    #     try:
-    #         self.wd.current_url
-    #         return True
-    #     except:
-    #         return False
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
 
     def open_home_page(self):
         wd = self.wd

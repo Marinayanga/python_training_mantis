@@ -1,16 +1,18 @@
 [
   {
     "py/object": "model.project.Project",
-    "description": "desc\"ia \"&Xb",
-    "name": "name",
+    "description": "descok/",
+    "id": null,
+    "name": "name K9nG(W",
     "status": "release",
-    "view_state": "public"
+    "view_state": "private"
   },
   {
     "py/object": "model.project.Project",
-    "description": "descfWRgx",
-    "name": "nameVa! L",
-    "status": "stable",
+    "description": "descN h.CD; ",
+    "id": null,
+    "name": "name",
+    "status": "release",
     "view_state": "public"
   }
 ]
