@@ -18,7 +18,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        self.wd = WebDriver()
+        #self.wd = WebDriver()
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.base_url = base_url
