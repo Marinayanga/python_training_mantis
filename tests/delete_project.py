@@ -5,7 +5,6 @@ import operator
 
 
 def test_delete_project(app, db):
-    app.session.login(username="administrator", password="root")
     if len(db.get_project_list()) == 0:
          app.project.create_project(Project(name="Test 8", status='stable', view_state="private", description="Description 7"))
     old_list = db.get_project_list()
