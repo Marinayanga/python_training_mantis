@@ -25,15 +25,16 @@ def config(request):
 
 
 @pytest.fixture
+def fix_login(request, config):
+    fixture.session.ensure_login(username=config['webadmin']['username'], password=config['webadmin']['password'])
+
+@pytest.fixture
 def app(request, config):
     global fixture
     browser = request.config.getoption("--browser")
-    web_config = config['web']
-    config1 = config['webadmin']
+    #web_config = config['web']
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser=browser, base_url=web_config['baseUrl'])
-    fixture.session.ensure_login(username=config1['username'], password=config1['password'])
-
+        fixture = Application(browser=browser, config=config)
     return fixture
 
 
@@ -75,6 +76,7 @@ def configure_server(request, config):
     def fin():
         restore_server_configuration(config['ftp']['host'], config['ftp']['username'], config['ftp']['password'])
     request.addfinalizer(fin)
+
 
 def install_server_configuration(host, username, password):
     with ftputil.FTPHost(host,username,password) as remote:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import operator
 
-def test_add_project(app, json_project,db):
+def test_add_project(app, fix_login, json_project,db):
     project = json_project
     old_list=db.get_project_list()
     app.project.create_project(project)

@@ -3,12 +3,16 @@ from idlelib import browser
 from selenium import webdriver
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.select import Select
+
+from fixture.james import JamesHelper
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
 from model.project import Project
+from fixture.signup import SignupHelper
+from fixture.mail import MailHelper
 
 class Application:
-    def __init__(self,base_url, browser):
+    def __init__(self, browser, config):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -18,11 +22,14 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        #self.wd = WebDriver()
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
-        self.base_url = base_url
+        self.config = config
+        self.base_url = config['web']['baseUrl']
         self.project = ProjectHelper(self)
+        self.james = JamesHelper(self)
+        self.signup =SignupHelper(self)
+        self.mail = MailHelper(self)
 
     def is_valid(self):
         try:
