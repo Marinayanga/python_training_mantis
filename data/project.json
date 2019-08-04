@@ -1,18 +1,18 @@
 [
   {
     "py/object": "model.project.Project",
-    "description": "descW8-t",
+    "description": "desc",
     "id": null,
-    "name": "namee]",
-    "status": "obsolete",
-    "view_state": "public"
+    "name": "name [Nj#",
+    "status": "release",
+    "view_state": "private"
   },
   {
     "py/object": "model.project.Project",
-    "description": "desc",
+    "description": "desc  X",
     "id": null,
-    "name": "namedo&~:0S7",
-    "status": "obsolete",
+    "name": "nameTcU",
+    "status": "stable",
     "view_state": "private"
   }
 ]

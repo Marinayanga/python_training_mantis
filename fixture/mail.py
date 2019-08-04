@@ -3,6 +3,7 @@ import email
 import time
 
 class MailHelper:
+
     def __init__(self, app):
         self.app = app
 
@@ -22,6 +23,6 @@ class MailHelper:
                        pop.quit()
                        return msg.get_payload()
            pop.quit()
-           time.sleep(5)
+           time.sleep(20)
 
         return None
